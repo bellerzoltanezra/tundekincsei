@@ -1,0 +1,1061 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tünde Kincsei - Ásvány • Ékszer • Ajándék</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-gold: #d4af37;
+            --deep-purple: #2d1b69;
+            --mystic-violet: #6b46c1;
+            --soft-rose: #f3e8ff;
+            --earth-brown: #8b4513;
+            --crystal-blue: #e0f2fe;
+            --dark-navy: #1e1b4b;
+            --warm-cream: #fef7ed;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, var(--deep-purple) 0%, var(--mystic-violet) 50%, var(--dark-navy) 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Animated background stars */
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .star {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: var(--primary-gold);
+            border-radius: 50%;
+            animation: twinkle 3s infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* Header */
+        header {
+            background: rgba(13, 13, 13, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 2px solid var(--primary-gold);
+        }
+
+        nav {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-gold);
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo i {
+            font-size: 1.8rem;
+            animation: rotate 8s infinite linear;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-gold);
+            background: rgba(212, 175, 55, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .cart-icon {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .cart-icon:hover {
+            transform: scale(1.1);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #e11d48;
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* Hero section */
+        .hero {
+            padding: 4rem 2rem;
+            text-align: center;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+            color: white;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: var(--primary-gold);
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 3px 3px 6px rgba(0,0,0,0.7), 0 0 20px rgba(212, 175, 55, 0.3); }
+            to { text-shadow: 3px 3px 6px rgba(0,0,0,0.7), 0 0 30px rgba(212, 175, 55, 0.6); }
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, var(--primary-gold), #f4d03f);
+            color: var(--dark-navy);
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.5);
+            background: linear-gradient(45deg, #f4d03f, var(--primary-gold));
+        }
+
+        /* Product sections */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section {
+            padding: 4rem 0;
+            background: rgba(255, 255, 255, 0.95);
+            margin: 2rem 0;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: var(--deep-purple);
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(45deg, var(--primary-gold), var(--mystic-violet));
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 0 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(107, 70, 193, 0.3);
+            border-color: var(--primary-gold);
+        }
+
+        .product-image {
+            height: 250px;
+            background: linear-gradient(135deg, var(--crystal-blue), var(--soft-rose));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: var(--mystic-violet);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(212, 175, 55, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: var(--deep-purple);
+        }
+
+        .product-origin {
+            color: var(--earth-brown);
+            font-style: italic;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .product-description {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .add-to-cart {
+            width: 100%;
+            padding: 0.8rem;
+            background: linear-gradient(45deg, var(--mystic-violet), var(--deep-purple));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .add-to-cart:hover {
+            background: linear-gradient(45deg, var(--deep-purple), var(--mystic-violet));
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(107, 70, 193, 0.4);
+        }
+
+        /* Cart sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: -400px;
+            top: 0;
+            width: 400px;
+            height: 100vh;
+            background: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.3);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            background: var(--deep-purple);
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            padding: 1rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-total {
+            padding: 1.5rem;
+            border-top: 2px solid var(--primary-gold);
+            background: var(--warm-cream);
+        }
+
+        .checkout-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--primary-gold), #f4d03f);
+            color: var(--dark-navy);
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Footer */
+        footer {
+            background: rgba(13, 13, 13, 0.95);
+            color: white;
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .footer-section h3 {
+            color: var(--primary-gold);
+            margin-bottom: 1rem;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--primary-gold);
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-links a:hover {
+            transform: scale(1.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                padding: 0;
+            }
+            
+            .cart-sidebar {
+                width: 100%;
+                right: -100%;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Success message */
+        .success-message {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: linear-gradient(45deg, #10b981, #34d399);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+            transform: translateX(400px);
+            transition: transform 0.3s ease;
+            z-index: 1001;
+        }
+
+        .success-message.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated stars background -->
+    <div class="stars" id="stars"></div>
+
+    <!-- Header -->
+    <header>
+        <nav>
+            <div class="logo">
+                <i class="fas fa-gem"></i>
+                Tünde Kincsei
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Főoldal</a></li>
+                <li><a href="#asvanok">Ásványok</a></li>
+                <li><a href="#ekszerek">Ékszerek</a></li>
+                <li><a href="#digitalis">Digitális</a></li>
+                <li><a href="#kapcsolat">Kapcsolat</a></li>
+            </ul>
+            <div class="cart-icon" onclick="toggleCart()">
+                <i class="fas fa-shopping-bag"></i>
+                <span class="cart-count" id="cart-count">0</span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <h1>Tünde Kincsei</h1>
+        <p>Ásvány • Ékszer • Ajándék</p>
+        <p>A világ távoli tájairól érkező, különleges kincsek várnak rád. Minden darab magában hordozza szülőföldje energiáját és történetét.</p>
+        <button class="cta-button" onclick="document.getElementById('asvanok').scrollIntoView({behavior: 'smooth'})">
+            Fedezd fel a kincseket
+        </button>
+    </section>
+
+    <!-- Ásványok Section -->
+    <section class="section" id="asvanok">
+        <div class="container">
+            <h2><i class="fas fa-mountain"></i> Gyógyító Kristályok</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-gem"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ametiszt Geoda</h3>
+                        <p class="product-origin">Brazília</p>
+                        <p class="product-description">Gyönyörű lila ametiszt geoda, amely segíti a meditációt és a belső békét. Eredeti tanúsítvánnyal.</p>
+                        <div class="product-price">15.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Ametiszt Geoda', 15990)">
+                            Kosárba teszem
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Rózsakvarc Szív</h3>
+                        <p class="product-origin">Madagaszkár</p>
+                        <p class="product-description">A szeretet köve - gyönyörű rózsaszín kvarc szív alakban. Tökéletes ajándék szeretteinknek.</p>
+                        <div class="product-price">8.490 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Rózsakvarc Szív', 8490)">
+                            Kosárba teszem
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-sun"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Citrin Nyers Kristály</h3>
+                        <p class="product-origin">Peru</p>
+                        <p class="product-description">A bőség és siker köve. Természetes citrin kristály, amely pozitív energiákat vonz.</p>
+                        <div class="product-price">12.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Citrin Nyers Kristály', 12990)">
+                            Kosárba teszem
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Ékszerek Section -->
+    <section class="section" id="ekszerek">
+        <div class="container">
+            <h2><i class="fas fa-ring"></i> Kézzel Készült Ékszerek</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Turmalin Nyaklánc</h3>
+                        <p class="product-origin">India</p>
+                        <p class="product-description">Fekete turmalin gyöngyökből készült védelmező nyaklánc. Sterling ezüst zárral.</p>
+                        <div class="product-price">24.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Turmalin Nyaklánc', 24990)">
+                            Kosárba teszem
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-moon"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Holdkő Karkötő</h3>
+                        <p class="product-origin">Bali</p>
+                        <p class="product-description">Kézzel fűzött holdkő karkötő, amely támogatja az intuíciót és a női energiákat.</p>
+                        <div class="product-price">18.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Holdkő Karkötő', 18990)">
+                            Kosárba teszem
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-eye"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Harmadik Szem Medál</h3>
+                        <p class="product-origin">Egyiptom</p>
+                        <p class="product-description">Lapis lazuli és ametiszt kombinációja ezüst foglalatban. A spirituális látás fejlesztéséhez.</p>
+                        <div class="product-price">32.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Harmadik Szem Medál', 32990)">
+                            Kosárba teszem
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digitális tartalmak Section -->
+    <section class="section" id="digitalis">
+        <div class="container">
+            <h2><i class="fas fa-download"></i> Digitális Tartalmak</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-om"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Kristály Meditációk</h3>
+                        <p class="product-origin">Digitális letöltés</p>
+                        <p class="product-description">5 db irányított meditáció különböző kristályokkal. MP3 formátum, 45 perces összidő.</p>
+                        <div class="product-price">4.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Kristály Meditációk', 4990)">
+                            Letöltöm
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-book-open"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Ásványok E-könyv</h3>
+                        <p class="product-origin">PDF formátum</p>
+                        <p class="product-description">Átfogó útmutató 50 gyógyító kő tulajdonságairól és használatáról. 120 oldal, színes képekkel.</p>
+                        <div class="product-price">2.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Ásványok E-könyv', 2990)">
+                            Letöltöm
+                        </button>
+                    </div>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-image">
+                        <i class="fas fa-microphone"></i>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-title">Csakra Harmonizáló Workshop</h3>
+                        <p class="product-origin">Hanganyag csomag</p>
+                        <p class="product-description">3 órás workshop anyag a 7 csakra harmonizálásáról. Gyakorlatok és meditációk.</p>
+                        <div class="product-price">8.990 Ft</div>
+                        <button class="add-to-cart" onclick="addToCart('Csakra Harmonizáló Workshop', 8990)">
+                            Letöltöm
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-section">
+                <h3>Tünde Kincsei</h3>
+                <p>Szentendre</p>
+                <p>+36 30 348 1883</p>
+                <p>tundepapphun1@gmail.com</p>
+            </div>
+            <div class="footer-section">
+                <h3>Kapcsolat</h3>
+                <p>Minden ásványt eredeti tanúsítvánnyal szerezünk be</p>
+                <p>Személyes átvétel Szentendrén</p>
+                <p>Országos szállítás</p>
+            </div>
+            <div class="footer-section">
+                <h3>Kövess minket</h3>
+                <div class="social-links">
+                    <a href="#" title="Facebook"><i class="fab fa-facebook"></i></a>
+                    <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="#" title="YouTube"><i class="fab fa-youtube"></i></a>
+                </div>
+                <p>Papp Tündi – Lélekinspirációk</p>
+                <p>9000+ követő</p>
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid #444;">
+            <p>&copy; 2025 Tünde Kincsei. Minden jog fenntartva.</p>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h3>Kosár</h3>
+            <button class="close-cart" onclick="toggleCart()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <p style="text-align: center; padding: 2rem; color: #666;">A kosár üres</p>
+        </div>
+        <div class="cart-total" id="cart-total" style="display: none;">
+            <h3>Összesen: <span id="total-amount">0 Ft</span></h3>
+            <button class="checkout-button" onclick="checkout()">
+                Megrendelés leadása
+            </button>
+        </div>
+    </div>
+
+    <!-- Success message -->
+    <div class="success-message" id="success-message">
+        <i class="fas fa-check"></i>
+        Termék hozzáadva a kosárhoz!
+    </div>
+
+    <!-- Cart overlay -->
+    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()" style="
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.5);
+        z-index: 999;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+    "></div>
+
+    <script>
+        // Initialize stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Cart functionality
+        let cart = [];
+        let cartCount = 0;
+        let cartTotal = 0;
+
+        function addToCart(name, price) {
+            const existingItem = cart.find(item => item.name === name);
+            
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ name, price, quantity: 1 });
+            }
+            
+            cartCount++;
+            cartTotal += price;
+            
+            updateCartDisplay();
+            showSuccessMessage();
+        }
+
+        function updateCartDisplay() {
+            document.getElementById('cart-count').textContent = cartCount;
+            
+            const cartItemsContainer = document.getElementById('cart-items');
+            const cartTotalContainer = document.getElementById('cart-total');
+            
+            if (cart.length === 0) {
+                cartItemsContainer.innerHTML = '<p style="text-align: center; padding: 2rem; color: #666;">A kosár üres</p>';
+                cartTotalContainer.style.display = 'none';
+            } else {
+                cartItemsContainer.innerHTML = '';
+                cartTotal = 0;
+                
+                cart.forEach((item, index) => {
+                    cartTotal += item.price * item.quantity;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <h4>${item.name}</h4>
+                            <p>${item.price.toLocaleString()} Ft × ${item.quantity}</p>
+                        </div>
+                        <div>
+                            <button onclick="removeFromCart(${index})" style="
+                                background: #e11d48;
+                                color: white;
+                                border: none;
+                                border-radius: 50%;
+                                width: 30px;
+                                height: 30px;
+                                cursor: pointer;
+                                margin-left: 1rem;
+                            ">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    `;
+                    cartItemsContainer.appendChild(cartItem);
+                });
+                
+                document.getElementById('total-amount').textContent = cartTotal.toLocaleString() + ' Ft';
+                cartTotalContainer.style.display = 'block';
+            }
+        }
+
+        function removeFromCart(index) {
+            const item = cart[index];
+            cartCount -= item.quantity;
+            cart.splice(index, 1);
+            updateCartDisplay();
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            const overlay = document.getElementById('cart-overlay');
+            
+            if (sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+            } else {
+                sidebar.classList.add('open');
+                overlay.style.opacity = '1';
+                overlay.style.visibility = 'visible';
+            }
+        }
+
+        function showSuccessMessage() {
+            const message = document.getElementById('success-message');
+            message.classList.add('show');
+            
+            setTimeout(() => {
+                message.classList.remove('show');
+            }, 3000);
+        }
+
+        function checkout() {
+            if (cart.length === 0) {
+                alert('A kosár üres!');
+                return;
+            }
+            
+            const orderSummary = cart.map(item => 
+                `${item.name} - ${item.quantity} db - ${(item.price * item.quantity).toLocaleString()} Ft`
+            ).join('\n');
+            
+            const message = `Köszönjük a rendelését!\n\nRendelt termékek:\n${orderSummary}\n\nVégösszeg: ${cartTotal.toLocaleString()} Ft\n\nHamarosan felvesszük Önnel a kapcsolatot a rendelés részleteinek egyeztetéséhez.`;
+            
+            alert(message);
+            
+            // Reset cart
+            cart = [];
+            cartCount = 0;
+            cartTotal = 0;
+            updateCartDisplay();
+            toggleCart();
+        }
+
+        // Initialize stars
+        function createStars() {
+            const starsContainer = document.getElementById('stars');
+            const numberOfStars = 100;
+            
+            for (let i = 0; i < numberOfStars; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starsContainer.appendChild(star);
+            }
+        }
+
+        // Intersection Observer for fade-in animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver(function(entries) {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Smooth scrolling and initialization
+        document.addEventListener('DOMContentLoaded', function() {
+            createStars();
+            
+            // Add smooth scrolling to navigation links
+            const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+            navLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href').substring(1);
+                    const targetElement = document.getElementById(targetId);
+                    
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+
+            // Initialize fade-in animations for sections
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(50px)';
+                section.style.transition = 'all 0.8s ease-out';
+                observer.observe(section);
+            });
+
+            // Add floating animation to product cards
+            const cards = document.querySelectorAll('.product-card');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${index * 0.2}s`;
+                card.style.animation = 'float 6s ease-in-out infinite';
+            });
+        });
+
+        // Add scroll effect to header
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.background = 'rgba(13, 13, 13, 0.95)';
+            } else {
+                header.style.background = 'rgba(13, 13, 13, 0.9)';
+            }
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const parallax = scrolled * 0.3;
+            hero.style.transform = `translateY(${parallax}px)`;
+        });
+
+        // Enhanced mobile responsiveness
+        window.addEventListener('resize', function() {
+            if (window.innerWidth <= 768) {
+                document.querySelector('.hero h1').style.fontSize = '2.5rem';
+                document.querySelector('.hero p').style.fontSize = '1.1rem';
+            } else {
+                document.querySelector('.hero h1').style.fontSize = '3.5rem';
+                document.querySelector('.hero p').style.fontSize = '1.3rem';
+            }
+        });
+
+        // Add click effect to buttons
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('add-to-cart') || 
+                e.target.classList.contains('cta-button') || 
+                e.target.classList.contains('checkout-button')) {
+                
+                e.target.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    e.target.style.transform = '';
+                }, 150);
+            }
+        });
+
+        // Loading animation for add to cart buttons
+        function showLoading(button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = '<span class="loading"></span> Hozzáadás...';
+            button.disabled = true;
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+            }, 1000);
+        }
+
+        // Enhanced add to cart with loading effect
+        const originalAddToCart = addToCart;
+        addToCart = function(name, price) {
+            const button = event.target;
+            showLoading(button);
+            
+            setTimeout(() => {
+                originalAddToCart(name, price);
+            }, 1000);
+        };
+
+        // Add floating keyframes to CSS
+        const floatingStyle = document.createElement('style');
+        floatingStyle.textContent = `
+            @keyframes float {
+                0%, 100% { transform: translateY(0px); }
+                50% { transform: translateY(-10px); }
+            }
+            
+            .product-card:nth-child(2n) {
+                animation-delay: 3s;
+            }
+        `;
+        document.head.appendChild(floatingStyle);
+
+        // Console greeting message
+        console.log(`
+        ✨ Tünde Kincsei Webshop ✨
+        Készítette: Bellér Zoltán Ezra
+        
+        Spirituális kincsek a világ minden tájáról!
+        🔮 Ásványok • 💎 Ékszerek • 📱 Digitális tartalmak
+        
+        Kapcsolat: tundepapphun1@gmail.com
+        Telefon: +36 30 348 1883
+        `);
+    </script>
+</body>
+</html>
