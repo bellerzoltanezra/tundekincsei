@@ -52,6 +52,165 @@
 }
 
 /* =========================
+   PRELOADER STYLES
+   ========================= */
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #fffdf9 0%, #fce4ec 40%, #d6f1f7 70%, #fdfcf8 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  transition: all 1s ease-out;
+}
+
+.preloader.fade-out {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.preloader-content {
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.preloader-logo {
+  width: 200px;
+  height: 200px;
+  border-radius: 10%;
+  object-fit: contain;
+  margin-bottom: 2rem;
+  animation: logoFloat 3s ease-in-out infinite;
+  filter: drop-shadow(0 10px 30px rgba(32, 178, 170, 0.3));
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid var(--primary-turquoise);
+  box-shadow: 0 0 40px rgba(32, 178, 170, 0.4);
+}
+
+.preloader-title {
+  font-family: 'Georgia', serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: var(--primary-turquoise);
+  margin-bottom: 1rem;
+  text-shadow: 2px 2px 8px rgba(32, 178, 170, 0.2);
+  animation: titleGlow 2s ease-in-out infinite alternate;
+}
+
+.preloader-subtitle {
+  font-family: 'Georgia', serif;
+  font-size: 1.2rem;
+  color: var(--magenta);
+  margin-bottom: 3rem;
+  opacity: 0.9;
+  font-style: italic;
+}
+
+.preloader-spinner {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  margin: 0 auto;
+}
+
+.spinner-ring {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 3px solid transparent;
+}
+
+.spinner-ring:nth-child(1) {
+  border-top: 3px solid var(--primary-turquoise);
+  border-right: 3px solid var(--primary-turquoise);
+  animation: spin 2s linear infinite;
+}
+
+.spinner-ring:nth-child(2) {
+  border-bottom: 3px solid var(--magenta);
+  border-left: 3px solid var(--magenta);
+  animation: spin 2s linear infinite reverse;
+  animation-delay: 0.3s;
+}
+
+.spinner-ring:nth-child(3) {
+  border-top: 3px solid var(--gold);
+  border-right: 3px solid var(--gold);
+  animation: spin 3s linear infinite;
+  animation-delay: 0.6s;
+  width: 60px;
+  height: 60px;
+  top: 10px;
+  left: 10px;
+}
+
+.preloader-gems {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.preloader-gem {
+  position: absolute;
+  font-size: 2rem;
+  opacity: 0.6;
+  animation: gemFloat 4s ease-in-out infinite;
+  color: var(--primary-turquoise);
+  text-shadow: 0 0 10px rgba(32, 178, 170, 0.5);
+}
+
+.preloader-gem:nth-child(2n) {
+  color: var(--magenta);
+  animation-duration: 5s;
+}
+
+.preloader-gem:nth-child(3n) {
+  color: var(--gold);
+  animation-duration: 6s;
+}
+
+.preloader-progress {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.preloader-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary-turquoise), var(--magenta), var(--gold));
+  border-radius: 10px;
+  animation: progressFill 3s ease-out forwards;
+  box-shadow: 0 0 15px rgba(32, 178, 170, 0.5);
+}
+
+.preloader-text {
+  position: absolute;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Georgia', serif;
+  color: var(--text-medium);
+  font-size: 1.1rem;
+  animation: textPulse 2s ease-in-out infinite;
+}
+
+/* =========================
    RESET
    ========================= */
 * {
@@ -621,6 +780,63 @@ footer a:hover {
 }
 
 /* =========================
+   PRELOADER ANIMATIONS
+   ========================= */
+@keyframes logoFloat {
+  0%, 100% { 
+    transform: translateY(0) scale(1); 
+  }
+  50% { 
+    transform: translateY(-10px) scale(1.05); 
+  }
+}
+
+@keyframes titleGlow {
+  0% { 
+    text-shadow: 2px 2px 8px rgba(32, 178, 170, 0.2); 
+  }
+  100% { 
+    text-shadow: 2px 2px 20px rgba(32, 178, 170, 0.6), 
+                 0 0 30px rgba(194, 24, 91, 0.3); 
+  }
+}
+
+@keyframes spin {
+  to { 
+    transform: rotate(360deg); 
+  }
+}
+
+@keyframes gemFloat {
+  0%, 100% { 
+    transform: translateY(0) rotate(0deg); 
+    opacity: 0.4; 
+  }
+  50% { 
+    transform: translateY(-20px) rotate(180deg); 
+    opacity: 0.8; 
+  }
+}
+
+@keyframes progressFill {
+  0% { 
+    width: 0%; 
+  }
+  100% { 
+    width: 100%; 
+  }
+}
+
+@keyframes textPulse {
+  0%, 100% { 
+    opacity: 0.7; 
+  }
+  50% { 
+    opacity: 1; 
+  }
+}
+
+/* =========================
    ANIMÁCIÓK
    ========================= */
 @keyframes float {
@@ -674,12 +890,6 @@ footer a:hover {
   }
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 .product-card:nth-child(even) {
   animation: gentle-float 4s ease-in-out infinite;
 }
@@ -690,6 +900,15 @@ footer a:hover {
 @media (max-width: 992px) {
   .hero h1 { 
     font-size: 2.6rem; 
+  }
+  
+  .preloader-title {
+    font-size: 2rem;
+  }
+  
+  .preloader-logo {
+    width: 100px;
+    height: 100px;
   }
 }
 
@@ -733,324 +952,399 @@ footer a:hover {
   .cart-sidebar.open { 
     right: 0; 
   }
+  
+  .preloader-title {
+    font-size: 1.8rem;
+  }
+  
+  .preloader-subtitle {
+    font-size: 1rem;
+  }
+  
+  .preloader-logo {
+    width: 80px;
+    height: 80px;
+  }
+  
+  .preloader-progress {
+    width: 250px;
+  }
+}
+
+/* Main content initially hidden */
+.main-content {
+  opacity: 0;
+  transition: opacity 1s ease-in;
+}
+
+.main-content.loaded {
+  opacity: 1;
 }
 </style>
 </head>
 <body>
-    <!-- Floating elements background -->
-    <div class="floating-elements" id="floating-elements"></div>
-
-    <!-- Header -->
-    <header>
-        <nav>
-            <div class="logo">
-                <img src="assets/images/1.png" alt="Tünde Kincsei Logo">
-                Tünde Kincsei
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-gems">
+            <div class="preloader-gem" style="top: 10%; left: 15%;">💎</div>
+            <div class="preloader-gem" style="top: 20%; right: 20%; animation-delay: 0.5s;">🔮</div>
+            <div class="preloader-gem" style="bottom: 30%; left: 10%; animation-delay: 1s;">✨</div>
+            <div class="preloader-gem" style="top: 60%; right: 15%; animation-delay: 1.5s;">💍</div>
+            <div class="preloader-gem" style="bottom: 20%; right: 10%; animation-delay: 2s;">⭐</div>
+            <div class="preloader-gem" style="top: 40%; left: 5%; animation-delay: 2.5s;">🌟</div>
+        </div>
+        
+        <div class="preloader-content">
+            <img src="assets/images/1.png" alt="Tünde Kincsei Logo" class="preloader-logo">
+            <h1 class="preloader-title">Tünde Kincsei</h1>
+            <p class="preloader-subtitle">Ásvány • Ékszer • Ajándék</p>
+            
+            <div class="preloader-spinner">
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
+                <div class="spinner-ring"></div>
             </div>
-            <ul class="nav-links">
-                <li><a href="#home">Főoldal</a></li>
-                <li><a href="#rolam">Rólam</a></li>
-                <li><a href="#asvanok">Ásványok</a></li>
-                <li><a href="#ekszerek">Ékszerek</a></li>
-                <li><a href="#egeszseg">Egészség & Harmónia</a></li>
-                <li><a href="#kapcsolat">Kapcsolat</a></li>
-            </ul>
-            <div class="cart-icon" onclick="toggleCart()">
-                <i class="fas fa-shopping-bag"></i>
-                <span class="cart-count" id="cart-count">0</span>
-            </div>
-        </nav>
-    </header>
+        </div>
+        
+        <div class="preloader-progress">
+            <div class="preloader-progress-bar"></div>
+        </div>
+        
+        <div class="preloader-text">Kincsek betöltése...</div>
+    </div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <h1>Tünde Kincsei</h1>
-        <p>Ásvány • Ékszer • Ajándék</p>
-        <p>A világ távoli tájairól érkező, különleges kincsek várnak rád. Minden darab magában hordozza szülőföldje energiáját és történetét.</p>
-        <button class="cta-button" onclick="document.getElementById('asvanok').scrollIntoView({behavior: 'smooth'})">
-            Fedezd fel a kincseket
-        </button>
-    </section>
+    <!-- Main Content -->
+    <div class="main-content" id="main-content">
+        <!-- Floating elements background -->
+        <div class="floating-elements" id="floating-elements"></div>
 
-    <!-- Rólam Section -->
-    <section class="section about-section" id="rolam">
-        <div class="container">
-            <h2> 🌸 Papp Tünde vagyok 🌸 </h2>
-            <div class="about-content">
-                <img src="assets/images/photo.jpg" alt="Papp Tünde" style="border: 5px solid var(--primary-turquoise);">
-                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-dark); line-height: 1.8;">
-                    Test – Lélek – Elme – Szellem Mentor • Tudatgyógyász • Life Coach
-                </p>
-                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-dark); line-height: 1.8;">A www.tundekincsei.hu esszenciája ✨ </p>
-                <p style="margin-bottom: 1.5rem; color: var(--text-medium);">
-                    Üdvözöllek a Tünde Kincsei világában, ahol földi és égi kincsek találkoznak. 🌿💎
+        <!-- Header -->
+        <header>
+            <nav>
+                <div class="logo">
+                    <img src="assets/images/1.png" alt="Tünde Kincsei Logo">
+                    Tünde Kincsei
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">Főoldal</a></li>
+                    <li><a href="#rolam">Rólam</a></li>
+                    <li><a href="#asvanok">Ásványok</a></li>
+                    <li><a href="#ekszerek">Ékszerek</a></li>
+                    <li><a href="#egeszseg">Egészség & Harmónia</a></li>
+                    <li><a href="#kapcsolat">Kapcsolat</a></li>
+                </ul>
+                <div class="cart-icon" onclick="toggleCart()">
+                    <i class="fas fa-shopping-bag"></i>
+                    <span class="cart-count" id="cart-count">0</span>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero" id="home">
+            <h1>Tünde Kincsei</h1>
+            <p>Ásvány • Ékszer • Ajándék</p>
+            <p>A világ távoli tájairól érkező, különleges kincsek várnak rád. Minden darab magában hordozza szülőföldje energiáját és történetét.</p>
+            <button class="cta-button" onclick="document.getElementById('asvanok').scrollIntoView({behavior: 'smooth'})">
+                Fedezd fel a kincseket
+            </button>
+        </section>
+
+        <!-- Rólam Section -->
+        <section class="section about-section" id="rolam">
+            <div class="container">
+                <h2> 🌸 Papp Tünde vagyok 🌸 </h2>
+                <div class="about-content">
+                    <img src="assets/images/photo.jpg" alt="Papp Tünde" style="border: 5px solid var(--primary-turquoise);">
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-dark); line-height: 1.8;">
+                        Test – Lélek – Elme – Szellem Mentor • Tudatgyógyász • Life Coach
+                    </p>
+                    <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-dark); line-height: 1.8;">A www.tundekincsei.hu esszenciája ✨ </p>
+                    <p style="margin-bottom: 1.5rem; color: var(--text-medium);">
+                        Üdvözöllek a Tünde Kincsei világában, ahol földi és égi kincsek találkoznak. 🌿💎
 Az életem hivatása, hogy segítsek az embereknek visszatalálni önmagukhoz, a bennük lévő belső ragyogáshoz, szeretethez és harmóniához.
-                </p>
-                <p style="color: var(--text-medium); font-style: italic;">
-                    A Tünde Kincsei nem csupán ásványok, ékszerek és ajándékok gyűjteménye.
+                    </p>
+                    <p style="color: var(--text-medium); font-style: italic;">
+                        A Tünde Kincsei nem csupán ásványok, ékszerek és ajándékok gyűjteménye.
 Ez egy szakrális tér, ahol a kristályok ősi üzenetei, a tudatgyógyászat bölcsessége és a szeretet ereje találkozik.
 Minden kristály, minden ékszer, minden apró kincs egy történetet, egy energiát hordoz és segít összekapcsolódni valódi önmagaddal.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ásványok Section -->
+        <section class="section" id="asvanok">
+            <div class="container">
+                <h2><i class="fas fa-mountain"></i> Erősítő, Harmonizáló Kristályok</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-gem"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Ametiszt Geoda</h3>
+                            <p class="product-origin">Brazília</p>
+                            <p class="product-description">Gyönyörű lila ametiszt geoda, amely segíti a meditációt és a belső békét. Eredeti tanúsítvánnyal.</p>
+                            <div class="product-price">15.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Ametiszt Geoda', 15990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Rózsakvarc Szív</h3>
+                            <p class="product-origin">Madagaszkár</p>
+                            <p class="product-description">A szeretet köve - gyönyörű rózsaszín kvarc szív alakban. Tökéletes ajándék szeretteinknek.</p>
+                            <div class="product-price">8.490 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Rózsakvarc Szív', 8490)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-sun"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Citrin Nyers Kristály</h3>
+                            <p class="product-origin">Peru</p>
+                            <p class="product-description">A bőség és siker köve. Természetes citrin kristály, amely pozitív energiákat vonz.</p>
+                            <div class="product-price">12.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Citrin Nyers Kristály', 12990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ékszerek Section -->
+        <section class="section" id="ekszerek">
+            <div class="container">
+                <h2><i class="fas fa-ring"></i> Kézzel Készült Ékszerek</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Turmalin Nyaklánc</h3>
+                            <p class="product-origin">India</p>
+                            <p class="product-description">Fekete turmalin gyöngyökből készült védelmező nyaklánc. Sterling ezüst zárral.</p>
+                            <div class="product-price">24.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Turmalin Nyaklánc', 24990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-moon"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Holdkő Karkötő</h3>
+                            <p class="product-origin">Bali</p>
+                            <p class="product-description">Kézzel fűzött holdkő karkötő, amely támogatja az intuíciót és a női energiákat.</p>
+                            <div class="product-price">18.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Holdkő Karkötő', 18990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Harmadik Szem Medál</h3>
+                            <p class="product-origin">Egyiptom</p>
+                            <p class="product-description">Lapis lazuli és ametiszt kombinációja ezüst foglalatban. A spirituális látás fejlesztéséhez.</p>
+                            <div class="product-price">32.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Harmadik Szem Medál', 32990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Egészség & Harmónia Section -->
+        <section class="section" id="egeszseg">
+            <div class="container">
+                <h2><i class="fas fa-leaf"></i> Egészség & Harmónia</h2>
+                <div class="products-grid">
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-spa"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Tibeti Hangtál</h3>
+                            <p class="product-origin">Tibet</p>
+                            <p class="product-description">Kézzel kovácsolt tibeti hangtál, amely segíti a relaxációt és a stressz oldását. Faverővel együtt.</p>
+                            <div class="product-price">18.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Tibeti Hangtál', 18990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-fire"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Tisztító Füstölő Szett</h3>
+                            <p class="product-origin">Peru</p>
+                            <p class="product-description">Fehér zsálya és Palo Santo természetes füstölő szett. Energiatisztításhoz és meditációhoz.</p>
+                            <div class="product-price">6.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Tisztító Füstölő Szett', 6990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="product-card">
+                        <div class="product-image">
+                            <i class="fas fa-yin-yang"></i>
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-title">Feng Shui Kristály Piramis</h3>
+                            <p class="product-origin">Kína</p>
+                            <p class="product-description">Átlátszó kristály piramis feng shui gyakorlatokhoz. Harmonizálja az otthon energiáit.</p>
+                            <div class="product-price">14.990 Ft</div>
+                            <button class="add-to-cart" onclick="addToCart('Feng Shui Kristály Piramis', 14990)">
+                                Kosárba teszem
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer id="kapcsolat">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Tünde Kincsei</h3>
+                    <p><strong> Egészség - Ásvány - Ékszer - Ajándék  </strong></p>
+                    <p><i class="fas fa-map-marker-alt"></i> Szentendre</p>
+                    <p><i class="fas fa-phone"></i> +36 20 402 2441</p>
+                    <p><i class="fas fa-envelope"></i> tundepapphun1@gmail.com</p>
+                    <br>
+                </div>
+                <div class="footer-section">
+                    <h3>Kapcsolat</h3>
+                    <p><i class="fas fa-certificate"></i> Minden ásvány eredeti tanúsítvánnyal Szerzünk be</p>
+                    <p><i class="fas fa-handshake"></i> Személyes átvétel Szentendrén </p>
+                    <p><i class="fa-solid fa-shop"></i> 2000 Szentendre Vasúti Villasor 5. sz. </p>
+                    <p><i class="fas fa-shipping-fast"></i> Országos szállítás futárszolgálattal </p>
+                    <br>
+                </div>
+                <div class="footer-section">
+                    <h3>Kövess minket</h3>
+                    <div class="social-links">
+                        <a href="https://www.facebook.com/PappTundiLelekinspiraciok" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" target="_blank" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" target="_blank" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                    <p><strong>Papp Tündi – Lélekinspirációk</strong></p>
+                    <p>9000+ hűséges követő</p>
+                    <br>
+                </div>
+                
+            </div>
+            <div style="text-align: center; margin-top: 20px; font-size: 14px;">
+    <p><strong>Jogi információk:</strong></p>
+    <p>
+        <a href="#aszf" style="color: var(--gold); text-decoration: none; margin: 0 8px;">ÁSZF</a> | 
+        <a href="#adatvedelem" style="color: var(--gold); text-decoration: none; margin: 0 8px;">Adatvédelem</a> | 
+        <a href="#impresszum" style="color: var(--gold); text-decoration: none; margin: 0 8px;">Impresszum</a>
+    </p>
+</div>
+            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
+                <p>&copy; 2025 Tünde Kincsei - Papp Tünde E.V. Minden jog fenntartva.</p>
+                <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">
+                    Weboldal Üzemeltető: <a href="codezra.hu" style="color: var(--gold); text-decoration: none;">CodEzra</a>
                 </p>
             </div>
-        </div>
-    </section>
+        </footer>
 
-    <!-- Ásványok Section -->
-    <section class="section" id="asvanok">
-        <div class="container">
-            <h2><i class="fas fa-mountain"></i> Erősítő, Harmonizáló Kristályok</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-gem"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Ametiszt Geoda</h3>
-                        <p class="product-origin">Brazília</p>
-                        <p class="product-description">Gyönyörű lila ametiszt geoda, amely segíti a meditációt és a belső békét. Eredeti tanúsítvánnyal.</p>
-                        <div class="product-price">15.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Ametiszt Geoda', 15990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-star"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Rózsakvarc Szív</h3>
-                        <p class="product-origin">Madagaszkár</p>
-                        <p class="product-description">A szeretet köve - gyönyörű rózsaszín kvarc szív alakban. Tökéletes ajándék szeretteinknek.</p>
-                        <div class="product-price">8.490 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Rózsakvarc Szív', 8490)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-sun"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Citrin Nyers Kristály</h3>
-                        <p class="product-origin">Peru</p>
-                        <p class="product-description">A bőség és siker köve. Természetes citrin kristály, amely pozitív energiákat vonz.</p>
-                        <div class="product-price">12.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Citrin Nyers Kristály', 12990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
+        <!-- Cart Sidebar -->
+        <div class="cart-sidebar" id="cart-sidebar">
+            <div class="cart-header">
+                <h3>Kosár</h3>
+                <button class="close-cart" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cart-items">
+                <p style="text-align: center; padding: 2rem; color: var(--text-medium);">A kosár üres</p>
+            </div>
+            <div class="cart-total" id="cart-total" style="display: none;">
+                <h3>Összesen: <span id="total-amount">0 Ft</span></h3>
+                <button class="checkout-button" onclick="checkout()">
+                    Megrendelés leadása
+                </button>
             </div>
         </div>
-    </section>
 
-    <!-- Ékszerek Section -->
-    <section class="section" id="ekszerek">
-        <div class="container">
-            <h2><i class="fas fa-ring"></i> Kézzel Készült Ékszerek</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-heart"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Turmalin Nyaklánc</h3>
-                        <p class="product-origin">India</p>
-                        <p class="product-description">Fekete turmalin gyöngyökből készült védelmező nyaklánc. Sterling ezüst zárral.</p>
-                        <div class="product-price">24.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Turmalin Nyaklánc', 24990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-moon"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Holdkő Karkötő</h3>
-                        <p class="product-origin">Bali</p>
-                        <p class="product-description">Kézzel fűzött holdkő karkötő, amely támogatja az intuíciót és a női energiákat.</p>
-                        <div class="product-price">18.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Holdkő Karkötő', 18990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Harmadik Szem Medál</h3>
-                        <p class="product-origin">Egyiptom</p>
-                        <p class="product-description">Lapis lazuli és ametiszt kombinációja ezüst foglalatban. A spirituális látás fejlesztéséhez.</p>
-                        <div class="product-price">32.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Harmadik Szem Medál', 32990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-            </div>
+        <!-- Success message -->
+        <div class="success-message" id="success-message">
+            <i class="fas fa-check"></i>
+            Termék hozzáadva a kosárhoz!
         </div>
-    </section>
 
-    <!-- Egészség & Harmónia Section -->
-    <section class="section" id="egeszseg">
-        <div class="container">
-            <h2><i class="fas fa-leaf"></i> Egészség & Harmónia</h2>
-            <div class="products-grid">
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-spa"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Tibeti Hangtál</h3>
-                        <p class="product-origin">Tibet</p>
-                        <p class="product-description">Kézzel kovácsolt tibeti hangtál, amely segíti a relaxációt és a stressz oldását. Faverővel együtt.</p>
-                        <div class="product-price">18.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Tibeti Hangtál', 18990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Tisztító Füstölő Szett</h3>
-                        <p class="product-origin">Peru</p>
-                        <p class="product-description">Fehér zsálya és Palo Santo természetes füstölő szett. Energiatisztításhoz és meditációhoz.</p>
-                        <div class="product-price">6.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Tisztító Füstölő Szett', 6990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-
-                <div class="product-card">
-                    <div class="product-image">
-                        <i class="fas fa-yin-yang"></i>
-                    </div>
-                    <div class="product-info">
-                        <h3 class="product-title">Feng Shui Kristály Piramis</h3>
-                        <p class="product-origin">Kína</p>
-                        <p class="product-description">Átlátszó kristály piramis feng shui gyakorlatokhoz. Harmonizálja az otthon energiáit.</p>
-                        <div class="product-price">14.990 Ft</div>
-                        <button class="add-to-cart" onclick="addToCart('Feng Shui Kristály Piramis', 14990)">
-                            Kosárba teszem
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="kapcsolat">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h3>Tünde Kincsei</h3>
-                <p><strong> Egészség - Ásvány - Ékszer - Ajándék  </strong></p>
-                <p><i class="fas fa-map-marker-alt"></i> Szentendre</p>
-                <p><i class="fas fa-phone"></i> +36 20 402 2441</p>
-                <p><i class="fas fa-envelope"></i> tundepapphun1@gmail.com</p>
-                <br>
-            </div>
-            <div class="footer-section">
-                <h3>Kapcsolat</h3>
-                <p><i class="fas fa-certificate"></i> Minden ásvány eredeti tanúsítvánnyal Szerzünk be</p>
-                <p><i class="fas fa-handshake"></i> Személyes átvétel Szentendrén </p>
-                <p><i class="fa-solid fa-shop"></i> 2000 Szentendre Vasúti Villasor 5. sz. </p>
-                <p><i class="fas fa-shipping-fast"></i> Országos szállítás futárszolgálattal </p>
-                <br>
-            </div>
-            <div class="footer-section">
-                <h3>Kövess minket</h3>
-                <div class="social-links">
-                    <a href="https://www.facebook.com/PappTundiLelekinspiraciok" target="_blank" title="Facebook">
-                        <i class="fab fa-facebook"></i>
-                    </a>
-                    <a href="#" target="_blank" title="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-                    <a href="#" target="_blank" title="YouTube">
-                        <i class="fab fa-youtube"></i>
-                    </a>
-                    <a href="#" target="_blank" title="TikTok">
-                        <i class="fab fa-tiktok"></i>
-                    </a>
-                </div>
-                <p><strong>Papp Tündi – Lélekinspirációk</strong></p>
-                <p>9000+ hűséges követő</p>
-                <br>
-            </div>
-            
-        </div>
-        <div style="text-align: center; margin-top: 20px; font-size: 14px;">
-  <p><strong>Jogi információk:</strong></p>
-  <p>
-    <a href="#aszf" style="color: var(--gold); text-decoration: none; margin: 0 8px;">ÁSZF</a> | 
-    <a href="#adatvedelem" style="color: var(--gold); text-decoration: none; margin: 0 8px;">Adatvédelem</a> | 
-    <a href="#impresszum" style="color: var(--gold); text-decoration: none; margin: 0 8px;">Impresszum</a>
-  </p>
-</div>
-        <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
-            <p>&copy; 2025 Tünde Kincsei - Papp Tünde E.V. Minden jog fenntartva.</p>
-            <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">
-                Weboldal Üzemeltető: <a href="codezra.hu" style="color: var(--gold); text-decoration: none;">CodEzra</a>
-            </p>
-        </div>
-    </footer>
-
-    <!-- Cart Sidebar -->
-    <div class="cart-sidebar" id="cart-sidebar">
-        <div class="cart-header">
-            <h3>Kosár</h3>
-            <button class="close-cart" onclick="toggleCart()">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <div class="cart-items" id="cart-items">
-            <p style="text-align: center; padding: 2rem; color: var(--text-medium);">A kosár üres</p>
-        </div>
-        <div class="cart-total" id="cart-total" style="display: none;">
-            <h3>Összesen: <span id="total-amount">0 Ft</span></h3>
-            <button class="checkout-button" onclick="checkout()">
-                Megrendelés leadása
-            </button>
-        </div>
+        <!-- Cart overlay -->
+        <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()" style="
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        "></div>
     </div>
-
-    <!-- Success message -->
-    <div class="success-message" id="success-message">
-        <i class="fas fa-check"></i>
-        Termék hozzáadva a kosárhoz!
-    </div>
-
-    <!-- Cart overlay -->
-    <div class="cart-overlay" id="cart-overlay" onclick="toggleCart()" style="
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.5);
-        z-index: 999;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
-    "></div>
 
     <script>
+        // Preloader functionality
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                const preloader = document.getElementById('preloader');
+                const mainContent = document.getElementById('main-content');
+                
+                preloader.classList.add('fade-out');
+                mainContent.classList.add('loaded');
+                
+                setTimeout(() => {
+                    preloader.style.display = 'none';
+                }, 1000);
+            }, 3500); // 3.5 seconds to match progress bar animation
+        });
+
         // Initialize floating gems and logos
         function createFloatingElements() {
             const container = document.getElementById('floating-elements');
