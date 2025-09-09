@@ -15,9 +15,9 @@
   --accent-turquoise: #008b8b;
   --soft-turquoise: #87ceeb;
 
-  --rose: #d4816b;
-  --soft-rose: #f4a6a6;
-  --light-rose: #f8d7da;
+  --magenta: #c2185b;
+  --soft-magenta: #e91e63;
+  --light-magenta: #f8bbd9;
 
   --gold: #d4af37;
   --light-gold: #f4e4a6;
@@ -34,13 +34,13 @@
 
   /* Árnyékok */
   --shadow-turquoise: rgba(32, 178, 170, 0.15);
-  --shadow-rose: rgba(212, 129, 107, 0.15);
+  --shadow-magenta: rgba(194, 24, 91, 0.15);
 
   /* Élénkebb háttér */
   --gradient-main: linear-gradient(
     135deg,
     #fffdf9 0%,
-    #fde2eb 40%,
+    #fce4ec 40%,
     #d6f1f7 70%,
     #fdfcf8 100%
   );
@@ -90,11 +90,11 @@ body {
   animation: float 10s ease-in-out infinite;
   color: var(--primary-turquoise);
   text-shadow: 0 0 6px rgba(32, 178, 170, 0.4),
-               0 0 12px rgba(212, 129, 107, 0.25);
+               0 0 12px rgba(194, 24, 91, 0.25);
 }
 
 .floating-gem:nth-child(3n) {
-  color: var(--rose);
+  color: var(--magenta);
   font-size: 2.2rem;
   opacity: 0.35;
 }
@@ -103,6 +103,21 @@ body {
   color: var(--gold);
   font-size: 1.6rem;
   text-shadow: 0 0 8px rgba(212, 175, 55, 0.4);
+}
+
+.floating-logo {
+  position: absolute;
+  opacity: 0.2;
+  width: 40px;
+  height: 40px;
+  animation: float 12s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(194, 24, 91, 0.3));
+}
+
+.floating-logo:nth-child(5n) {
+  width: 35px;
+  height: 35px;
+  opacity: 0.25;
 }
 
 /* =========================
@@ -138,10 +153,12 @@ nav {
   text-shadow: 1px 1px 3px rgba(32, 178, 170, 0.25);
 }
 
-.logo i {
-  font-size: 1.5rem;
-  color: var(--gold);
+.logo img {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
   animation: sparkle 4s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 4px rgba(194, 24, 91, 0.2));
 }
 
 .nav-links {
@@ -161,7 +178,7 @@ nav {
 
 .nav-links a:hover {
   color: var(--accent-turquoise);
-  background: var(--light-rose);
+  background: var(--light-magenta);
   transform: translateY(-2px);
 }
 
@@ -183,8 +200,8 @@ nav {
   position: absolute;
   top: -6px;
   right: -6px;
-  background: var(--soft-rose);
-  color: var(--text-dark);
+  background: var(--soft-magenta);
+  color: #fff;
   border-radius: 50%;
   width: 18px;
   height: 18px;
@@ -290,7 +307,7 @@ nav {
   transform: translateX(-50%);
   width: 90px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-turquoise), var(--soft-rose), var(--gold));
+  background: linear-gradient(90deg, var(--primary-turquoise), var(--soft-magenta), var(--gold));
   border-radius: 2px;
 }
 
@@ -394,7 +411,7 @@ nav {
 .add-to-cart {
   width: 100%;
   padding: 0.9rem;
-  background: var(--rose);
+  background: var(--magenta);
   color: #fff;
   border: none;
   border-radius: 12px;
@@ -404,14 +421,13 @@ nav {
   text-transform: uppercase;
   letter-spacing: 0.5px;
   font-size: 0.95rem;
-  box-shadow: 0 6px 18px var(--shadow-rose);
+  box-shadow: 0 6px 18px var(--shadow-magenta);
 }
 
 .add-to-cart:hover {
-  background: var(--soft-rose);
-  color: var(--text-dark);
+  background: var(--soft-magenta);
   transform: translateY(-2px);
-  box-shadow: 0 8px 22px var(--shadow-rose);
+  box-shadow: 0 8px 22px var(--shadow-magenta);
 }
 
 /* =========================
@@ -570,7 +586,7 @@ footer a {
 }
 
 footer a:hover {
-  color: var(--rose);
+  color: var(--magenta);
 }
 
 /* =========================
@@ -728,7 +744,7 @@ footer a:hover {
     <header>
         <nav>
             <div class="logo">
-                <i class="fas fa-gem"></i>
+                <img src="assets/images/1.png" alt="Tünde Kincsei Logo">
                 Tünde Kincsei
             </div>
             <ul class="nav-links">
@@ -759,20 +775,21 @@ footer a:hover {
     <!-- Rólam Section -->
     <section class="section about-section" id="rolam">
         <div class="container">
-            <h2><i class="fas fa-heart"></i> Rólam</h2>
+            <h2> 🌸 Papp Tünde vagyok 🌸 </h2>
             <div class="about-content">
-                <!-- Itt lesz majd a saját fotód -->
-                <div style="width: 200px; height: 200px; margin: 0 auto 2rem auto; border-radius: 50%; background: linear-gradient(135deg, var(--pastel-blue), var(--pastel-pink)); display: flex; align-items: center; justify-content: center; font-size: 4rem; color: var(--accent-turquoise); border: 5px solid var(--primary-turquoise);">
-                    <i class="fas fa-user-circle"></i>
-                </div>
+                <img src="assets/images/photo.jpg" alt="Papp Tünde" style="border: 5px solid var(--primary-turquoise);">
                 <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-dark); line-height: 1.8;">
-                    Kedves Látogató! Papp Tünde vagyok, és szívvel-lélekkel hiszek abban, hogy az ásványok és kristályok különleges energiái segíthetnek mindannyiunkat az életünk harmóniájának megteremtésében.
+                    Test – Lélek – Elme – Szellem Mentor • Tudatgyógyász • Life Coach
                 </p>
+                <p style="font-size: 1.2rem; margin-bottom: 2rem; color: var(--text-dark); line-height: 1.8;">A www.tundekincsei.hu esszenciája ✨ </p>
                 <p style="margin-bottom: 1.5rem; color: var(--text-medium);">
-                    Évek óta foglalkozom ásványok gyűjtésével és a spirituális fejlődés támogatásával. Minden terméket gondosan választok ki, eredeti tanúsítvánnyal szerzek be, hogy biztos lehess benne: valódi, minőségi darabokat kapsz.
+                    Üdvözöllek a Tünde Kincsei világában, ahol földi és égi kincsek találkoznak. 🌿💎
+Az életem hivatása, hogy segítsek az embereknek visszatalálni önmagukhoz, a bennük lévő belső ragyogáshoz, szeretethez és harmóniához.
                 </p>
                 <p style="color: var(--text-medium); font-style: italic;">
-                    Célom, hogy megtaláld azt a különleges kincset, amely hozzád szól és támogatja utadon. Bízom benne, hogy bizalommal fordulsz hozzám - minden kérdéseddel szívesen segítek!
+                    A Tünde Kincsei nem csupán ásványok, ékszerek és ajándékok gyűjteménye.
+Ez egy szakrális tér, ahol a kristályok ősi üzenetei, a tudatgyógyászat bölcsessége és a szeretet ereje találkozik.
+Minden kristály, minden ékszer, minden apró kincs egy történetet, egy energiát hordoz és segít összekapcsolódni valódi önmagaddal.
                 </p>
             </div>
         </div>
@@ -942,26 +959,19 @@ footer a:hover {
         <div class="footer-content">
             <div class="footer-section">
                 <h3>Tünde Kincsei</h3>
-                <p><strong>Papp Tünde</strong></p>
-                <p><i class="fas fa-map-marker-alt"></i> Cegléd, Pest megye</p>
-                <p><i class="fas fa-phone"></i> +36 30 348 1883</p>
+                <p><strong> Egészség - Ásvány - Ékszer - Ajándék  </strong></p>
+                <p><i class="fas fa-map-marker-alt"></i> Szentendre</p>
+                <p><i class="fas fa-phone"></i> +36 20 402 2441</p>
                 <p><i class="fas fa-envelope"></i> tundepapphun1@gmail.com</p>
                 <br>
-                <p><strong>Céginformációk:</strong></p>
-                <p>Egyéni vállalkozó</p>
-                <p>Adószám: [ide kerül majd]</p>
-                <p>Nyilvántartási szám: [ide kerül majd]</p>
             </div>
             <div class="footer-section">
-                <h3>Vásárlási Információk</h3>
-                <p><i class="fas fa-certificate"></i> Minden ásvány eredeti tanúsítvánnyal</p>
-                <p><i class="fas fa-handshake"></i> Személyes átvétel Cegléden</p>
-                <p><i class="fas fa-shipping-fast"></i> Országos szállítás futárszolgálattal</p>
-                <p><i class="fas fa-credit-card"></i> Fizetés: banki átutalás vagy kártyával</p>
+                <h3>Kapcsolat</h3>
+                <p><i class="fas fa-certificate"></i> Minden ásvány eredeti tanúsítvánnyal Szerzünk be</p>
+                <p><i class="fas fa-handshake"></i> Személyes átvétel Szentendrén </p>
+                <p><i class="fa-solid fa-shop"></i> 2000 Szentendre Vasúti Villasor 5. sz. </p>
+                <p><i class="fas fa-shipping-fast"></i> Országos szállítás futárszolgálattal </p>
                 <br>
-                <p><strong>Szállítási idő:</strong> 2-5 munkanap</p>
-                <p><strong>Szállítási költség:</strong> 1.990 Ft</p>
-                <p><strong>30.000 Ft felett:</strong> INGYENES szállítás</p>
             </div>
             <div class="footer-section">
                 <h3>Kövess minket</h3>
@@ -982,16 +992,21 @@ footer a:hover {
                 <p><strong>Papp Tündi – Lélekinspirációk</strong></p>
                 <p>9000+ hűséges követő</p>
                 <br>
-                <p><strong>Jogi információk:</strong></p>
-                <p><a href="#aszf" style="color: var(--gold); text-decoration: none;">ÁSZF</a> | 
-                   <a href="#adatvedelem" style="color: var(--gold); text-decoration: none;">Adatvédelem</a> | 
-                   <a href="#impresszum" style="color: var(--gold); text-decoration: none;">Impresszum</a></p>
             </div>
+            
         </div>
+        <div style="text-align: center; margin-top: 20px; font-size: 14px;">
+  <p><strong>Jogi információk:</strong></p>
+  <p>
+    <a href="#aszf" style="color: var(--gold); text-decoration: none; margin: 0 8px;">ÁSZF</a> | 
+    <a href="#adatvedelem" style="color: var(--gold); text-decoration: none; margin: 0 8px;">Adatvédelem</a> | 
+    <a href="#impresszum" style="color: var(--gold); text-decoration: none; margin: 0 8px;">Impresszum</a>
+  </p>
+</div>
         <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.2);">
             <p>&copy; 2025 Tünde Kincsei - Papp Tünde E.V. Minden jog fenntartva.</p>
             <p style="font-size: 0.9rem; margin-top: 0.5rem; opacity: 0.8;">
-                Weboldal készítő: <a href="mailto:bellerzoltanezra@gmail.com" style="color: var(--gold); text-decoration: none;">Bellér Zoltán Ezra</a>
+                Weboldal Üzemeltető: <a href="codezra.hu" style="color: var(--gold); text-decoration: none;">CodEzra</a>
             </p>
         </div>
     </footer>
@@ -1036,13 +1051,15 @@ footer a:hover {
     "></div>
 
     <script>
-        // Initialize floating gems
+        // Initialize floating gems and logos
         function createFloatingElements() {
             const container = document.getElementById('floating-elements');
             const gems = ['💎', '💍', '🔮', '✨', '⭐', '🌟', '💫'];
-            const numberOfElements = 15;
+            const numberOfGems = 12;
+            const numberOfLogos = 5;
             
-            for (let i = 0; i < numberOfElements; i++) {
+            // Add floating gems
+            for (let i = 0; i < numberOfGems; i++) {
                 const gem = document.createElement('div');
                 gem.className = 'floating-gem';
                 gem.innerHTML = gems[Math.floor(Math.random() * gems.length)];
@@ -1051,6 +1068,19 @@ footer a:hover {
                 gem.style.animationDelay = Math.random() * 8 + 's';
                 gem.style.animationDuration = (8 + Math.random() * 4) + 's';
                 container.appendChild(gem);
+            }
+            
+            // Add floating logos
+            for (let i = 0; i < numberOfLogos; i++) {
+                const logo = document.createElement('img');
+                logo.className = 'floating-logo';
+                logo.src = 'assets/images/1.png';
+                logo.alt = 'Floating Logo';
+                logo.style.left = Math.random() * 100 + '%';
+                logo.style.top = Math.random() * 100 + '%';
+                logo.style.animationDelay = Math.random() * 12 + 's';
+                logo.style.animationDuration = (10 + Math.random() * 6) + 's';
+                container.appendChild(logo);
             }
         }
 
@@ -1100,8 +1130,8 @@ footer a:hover {
                         </div>
                         <div>
                             <button onclick="removeFromCart(${index})" style="
-                                background: var(--soft-rose);
-                                color: var(--text-dark);
+                                background: var(--soft-magenta);
+                                color: #fff;
                                 border: none;
                                 border-radius: 50%;
                                 width: 30px;
@@ -1109,7 +1139,7 @@ footer a:hover {
                                 cursor: pointer;
                                 margin-left: 1rem;
                                 transition: all 0.3s ease;
-                            " onmouseover="this.style.background='#f082ac'" onmouseout="this.style.background='var(--soft-rose)'">
+                            " onmouseover="this.style.background='#ad1457'" onmouseout="this.style.background='var(--soft-magenta)'">
                                 <i class="fas fa-times"></i>
                             </button>
                         </div>
@@ -1170,7 +1200,7 @@ footer a:hover {
                 orderNumber: 'TK-' + Date.now().toString().slice(-6)
             };
             
-            const message = `🛍️ Köszönjük a rendelését!\n\nRendelési szám: ${orderDetails.orderNumber}\n\nRendelt termékek:\n${orderSummary}\n\nVégösszeg: ${cartTotal.toLocaleString()} Ft\n\n💳 Fizetési mód: Banki átutalás\n📧 Hamarosan küldjük a részletes fizetési információkat az email címére!\n\n📞 Kérdés esetén: +36 30 348 1883\n📧 Email: tundepapphun1@gmail.com`;
+            const message = `🛍️ Köszönjük a rendelését!\n\nRendelési szám: ${orderDetails.orderNumber}\n\nRendelt termékek:\n${orderSummary}\n\nVégösszeg: ${cartTotal.toLocaleString()} Ft\n\n💳 Fizetési mód: Banki átutalás\n📧 Hamarosan küldjük a részletes fizetési információkat az email címére!\n\n📞 Kérdés esetén: +36 20 402 2441\n📧 Email: tundepapphun1@gmail.com`;
             
             alert(message);
             
@@ -1264,26 +1294,12 @@ footer a:hover {
             const header = document.querySelector('header');
             if (window.scrollY > 50) {
                 header.style.background = 'rgba(255, 255, 255, 0.98)';
-                header.style.boxShadow = '0 2px 25px rgba(64, 224, 208, 0.15)';
+                header.style.boxShadow = '0 2px 25px rgba(32, 178, 170, 0.15)';
             } else {
                 header.style.background = 'rgba(255, 255, 255, 0.95)';
-                header.style.boxShadow = '0 2px 20px rgba(64, 224, 208, 0.1)';
+                header.style.boxShadow = '0 2px 20px rgba(32, 178, 170, 0.1)';
             }
         });
-
-        // Add gentle floating animation
-        const floatingStyle = document.createElement('style');
-        floatingStyle.textContent = `
-            @keyframes gentle-float {
-                0%, 100% { transform: translateY(0px); }
-                50% { transform: translateY(-5px); }
-            }
-            
-            .product-card:nth-child(even) {
-                animation-delay: 2s !important;
-            }
-        `;
-        document.head.appendChild(floatingStyle);
 
         // Enhanced mobile menu for responsive design
         window.addEventListener('resize', function() {
@@ -1301,16 +1317,16 @@ footer a:hover {
         // Console welcome message
         console.log(`
         ✨ Tünde Kincsei Webshop ✨
-        Új design: Türkiz, rózsaszín és arany színvilág
+        Frissített design: Türkiz, magenta és arany színvilág
         
         🔮 Erősítő, harmonizáló kristályok
         💍 Kézzel készült ékszerek  
         🌿 Egészség & harmónia termékek
         
-        📞 +36 30 348 1883
+        📞 +36 20 402 2441
         📧 tundepapphun1@gmail.com
         
-        Készítette: Bellér Zoltán Ezra
+        Készítette: CodEzra
         `);
     </script>
 
