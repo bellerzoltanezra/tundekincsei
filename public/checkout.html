@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pénztár - Tünde Kincsei</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        :root {
+            --primary-turquoise: #20b2aa;
+            --accent-turquoise: #008b8b;
+            --magenta: #c2185b;
+            --soft-magenta: #e91e63;
+            --gold: #d4af37;
+            --cream-white: #faf8f3;
+            --text-dark: #2e2e2e;
+            --text-medium: #6b6b6b;
+            --shadow-turquoise: rgba(32, 178, 170, 0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #fffdf9 0%, #fce4ec 40%, #d6f1f7 70%, #fdfcf8 100%);
+            color: var(--text-dark);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-turquoise);
+            margin-bottom: 0.5rem;
+        }
+
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px var(--shadow-turquoise);
+        }
+
+        .section {
+            background: rgba(255, 255, 255, 0.5);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(32, 178, 170, 0.2);
+        }
+
+        .section h2 {
+            color: var(--primary-turquoise);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            border-bottom: 2px solid var(--primary-turquoise);
+            padding-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid rgba(32, 178, 170, 0.3);
+            border-radius: 10px;
+            font-family: 'Georgia', serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary-turquoise);
+            box-shadow: 0 0 10px var(--shadow-turquoise);
+        }
+
+        .shipping-options {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .shipping-option {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid rgba(32, 178, 170, 0.3);
+            border-radius: 10px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .shipping-option:hover {
+            border-color: var(--primary-turquoise);
+            background: rgba(32, 178, 170, 0.05);
+        }
+
+        .shipping-option.active {
+            border-color: var(--primary-turquoise);
+            background: rgba(32, 178, 170, 0.1);
+        }
+
+        .shipping-option i {
+            font-size: 2rem;
+            color: var(--primary-turquoise);
+            margin-bottom: 0.5rem;
+        }
+
+        .order-summary {
+            position: sticky;
+            top: 2rem;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            border-bottom: 1px solid rgba(32, 178, 170, 0.2);
+            margin-bottom: 0.5rem;
+        }
+
+        .cart-item-info h4 {
+            color: var(--text-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .cart-item-info p {
+            color: var(--text-medium);
+            font-size: 0.9rem;
+        }
+
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.8rem 0;
+            border-bottom: 1px solid rgba(32, 178, 170, 0.1);
+        }
+
+        .price-row.total {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: var(--primary-turquoise);
+            border-top: 2px solid var(--primary-turquoise);
+            border-bottom: none;
+            margin-top: 1rem;
+            padding-top: 1rem;
+        }
+
+        #card-element {
+            padding: 1rem;
+            border: 2px solid rgba(32, 178, 170, 0.3);
+            border-radius: 10px;
+            background: white;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary-turquoise), var(--accent-turquoise));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px var(--shadow-turquoise);
+        }
+
+        .submit-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .error-message {
+            background: #ffebee;
+            color: #c62828;
+            padding: 1rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .success-message {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 2rem;
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .success-message i {
+            font-size: 3rem;
+            color: #4caf50;
+            margin-bottom: 1rem;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+                order: -1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="logo">
+                <i class="fas fa-gem"></i> Tünde Kincsei
+            </div>
+            <p>Biztonságos fizetés • Gyors szállítás</p>
+        </header>
+
+        <div class="checkout-container" id="checkout-form">
+            <div>
+                <!-- Szállítási információk -->
+                <div class="section">
+                    <h2><i class="fas fa-user"></i> Vásárlói adatok</h2>
+                    <div class="form-group">
+                        <label>Teljes név *</label>
+                        <input type="text" id="name" required placeholder="Kovács Anna">
+                    </div>
+                    <div class="form-group">
+                        <label>Email cím *</label>
+                        <input type="email" id="email" required placeholder="anna@example.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Telefonszám *</label>
+                        <input type="tel" id="phone" required placeholder="+36 20 123 4567">
+                    </div>
+                </div>
+
+                <!-- Szállítási mód -->
+                <div class="section">
+                    <h2><i class="fas fa-truck"></i> Szállítási mód</h2>
+                    <div class="shipping-options">
+                        <div class="shipping-option active" data-method="foxpost">
+                            <i class="fas fa-box"></i>
+                            <h3>FoxPost automata</h3>
+                            <p>1.290 Ft</p>
+                        </div>
+                        <div class="shipping-option" data-method="home">
+                            <i class="fas fa-home"></i>
+                            <h3>Házhozszállítás</h3>
+                            <p>1.890 Ft</p>
+                        </div>
+                    </div>
+
+                    <div id="foxpost-section">
+                        <div class="form-group">
+                            <label>FoxPost automata *</label>
+                            <select id="foxpost-location">
+                                <option value="">Válasszon automatát...</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div id="home-delivery-section" class="hidden">
+                        <div class="form-group">
+                            <label>Irányítószám *</label>
+                            <input type="text" id="zip-code" placeholder="1234">
+                        </div>
+                        <div class="form-group">
+                            <label>Város *</label>
+                            <input type="text" id="city" placeholder="Budapest">
+                        </div>
+                        <div class="form-group">
+                            <label>Cím *</label>
+                            <input type="text" id="address" placeholder="Fő utca 12, 2. em. 5.">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Megjegyzés (opcionális)</label>
+                        <textarea id="notes" rows="3" placeholder="Pl. csengőn szereplő név, kérések..."></textarea>
+                    </div>
+                </div>
+
+                <!-- Fizetési adatok -->
+                <div class="section">
+                    <h2><i class="fas fa-credit-card"></i> Fizetési adatok</h2>
+                    <p style="margin-bottom: 1rem; color: var(--text-medium);">
+                        <i class="fas fa-lock"></i> Biztonságos fizetés Stripe rendszeren keresztül
+                    </p>
+                    <div id="card-element"></div>
+                    <div class="error-message" id="card-errors"></div>
+                </div>
+
+                <button class="submit-button" id="submit-button">
+                    <span id="button-text">Fizetés és megrendelés</span>
+                    <span id="button-loading" class="hidden"><span class="loading"></span> Feldolgozás...</span>
+                </button>
+            </div>
+
+            <!-- Rendelés összesítő -->
+            <div class="order-summary">
+                <div class="section">
+                    <h2><i class="fas fa-shopping-bag"></i> Rendelés összesítő</h2>
+                    <div id="cart-items-summary"></div>
+                    
+                    <div style="margin-top: 1.5rem;">
+                        <div class="price-row">
+                            <span>Részösszeg:</span>
+                            <span id="subtotal">0 Ft</span>
+                        </div>
+                        <div class="price-row">
+                            <span>Szállítási díj:</span>
+                            <span id="shipping-cost">1.290 Ft</span>
+                        </div>
+                        <div class="price-row total">
+                            <span>Végösszeg:</span>
+                            <span id="total">0 Ft</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sikeres megrendelés üzenet -->
+        <div class="success-message" id="success-message">
+            <i class="fas fa-check-circle"></i>
+            <h2>Köszönjük a rendelését!</h2>
+            <p>Rendelési szám: <strong id="order-number"></strong></p>
+            <p style="margin-top: 1rem;">Hamarosan emailt kap a rendelés részleteiről.</p>
+            <button class="submit-button" onclick="window.location.href='index.html'" style="margin-top: 2rem; max-width: 300px;">
+                Vissza a főoldalra
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Stripe inicializálás
+        const stripe = Stripe('YOUR_STRIPE_PUBLISHABLE_KEY_HERE'); // Ide kell beilleszteni a Stripe Public Key-t
+        const elements = stripe.elements();
+        
+        const cardElement = elements.create('card', {
+            style: {
+                base: {
+                    fontSize: '16px',
+                    fontFamily: 'Georgia, serif',
+                    color: '#2e2e2e',
+                    '::placeholder': {
+                        color: '#6b6b6b',
+                    },
+                },
+            },
+        });
+        
+        cardElement.mount('#card-element');
+
+        // API URL - módosítsd a saját szervered címére
+        const API_URL = 'http://localhost:3000/api';
+
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        let selectedShippingMethod = 'foxpost';
+        let shippingCost = 1290;
+
+        // Kosár megjelenítése
+        function displayCart() {
+            const cartSummary = document.getElementById('cart-items-summary');
+            let subtotal = 0;
+
+            cartSummary.innerHTML = cart.map(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal;
+                return `
+                    <div class="cart-item">
+                        <div class="cart-item-info">
+                            <h4>${item.name}</h4>
+                            <p>${item.quantity} db × ${item.price.toLocaleString()} Ft</p>
+                        </div>
+                        <div style="font-weight: bold;">
+                            ${itemTotal.toLocaleString()} Ft
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            document.getElementById('subtotal').textContent = subtotal.toLocaleString() + ' Ft';
+            const total = subtotal + shippingCost;
+            document.getElementById('total').textContent = total.toLocaleString() + ' Ft';
+        }
+
+        // FoxPost automaták betöltése
+        async function loadFoxPostLocations() {
+            try {
+                const response = await fetch(`${API_URL}/foxpost/locations`);
+                const locations = await response.json();
+                
+                const select = document.getElementById('foxpost-location');
+                select.innerHTML = '<option value="">Válasszon automatát...</option>' +
+                    locations.map(loc => 
+                        `<option value="${loc.id}">${loc.name} - ${loc.address}</option>`
+                    ).join('');
+            } catch (error) {
+                console.error('Hiba a FoxPost automaták betöltésekor:', error);
+            }
+        }
+
+        // Szállítási mód váltás
+        document.querySelectorAll('.shipping-option').forEach(option => {
+            option.addEventListener('click', function() {
+                document.querySelectorAll('.shipping-option').forEach(opt => opt.classList.remove('active'));
+                this.classList.add('active');
+                
+                selectedShippingMethod = this.dataset.method;
+                
+                if (selectedShippingMethod === 'foxpost') {
+                    document.getElementById('foxpost-section').classList.remove('hidden');
+                    document.getElementById('home-delivery-section').classList.add('hidden');
+                    shippingCost = 1290;
+                } else {
+                    document.getElementById('foxpost-section').classList.add('hidden');
+                    document.getElementById('home-delivery-section').classList.remove('hidden');
+                    shippingCost = 1890;
+                }
+                
+                document.getElementById('shipping-cost').textContent = shippingCost.toLocaleString() + ' Ft';
+                displayCart();
+            });
+        });
+
+        // Kártya hibák kezelése
+        cardElement.on('change', function(event) {
+            const displayError = document.getElementById('card-errors');
+            if (event.error) {
+                displayError.textContent = event.error.message;
+                displayError.style.display = 'block';
+            } else {
+                displayError.textContent = '';
+                displayError.style.display = 'none';
+            }
+        });
+
+        // Rendelés beküldése
+        document.getElementById('submit-button').addEventListener('click', async function(e) {
+            e.preventDefault();
+            
+            const button = this;
+            const buttonText = document.getElementById('button-text');
+            const buttonLoading = document.getElementById('button-loading');
+            
+            // Validáció
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            
+            if (!name || !email || !phone) {
+                alert('Kérjük, töltse ki az összes kötelező mezőt!');
+                return;
+            }
+            
+            if (selectedShippingMethod === 'foxpost' && !document.getElementById('foxpost-location').value) {
+                alert('Kérjük, válasszon FoxPost automatát!');
+                return;
+            }
+            
+            if (selectedShippingMethod === 'home') {
+                const zipCode = document.getElementById('zip-code').value.trim();
+                const city = document.getElementById('city').value.trim();
+                const address = document.getElementById('address').value.trim();
+                
+                if (!zipCode || !city || !address) {
+                    alert('Kérjük, töltse ki a szállítási címet!');
+                    return;
+                }
+            }
+            
+            button.disabled = true;
+            buttonText.classList.add('hidden');
+            buttonLoading.classList.remove('hidden');
+            
+            try {
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const total = subtotal + shippingCost;
+                const orderId = 'TK-' + Date.now().toString().slice(-8);
+                
+                const orderData = {
+                    orderId: orderId,
+                    items: cart,
+                    total: total,
+                    shippingMethod: selectedShippingMethod,
+                    customerInfo: {
+                        name: name,
+                        email: email,
+                        phone: phone,
+                        notes: document.getElementById('notes').value.trim()
+                    }
+                };
+                
+                if (selectedShippingMethod === 'foxpost') {
+                    orderData.foxpostLocationId = document.getElementById('foxpost-location').value;
+                    orderData.foxpostLocation = document.getElementById('foxpost-location').options[
+                        document.getElementById('foxpost-location').selectedIndex
+                    ].text;
+                } else {
+                    orderData.customerInfo.zipCode = document.getElementById('zip-code').value.trim();
+                    orderData.customerInfo.city = document.getElementById('city').value.trim();
+                    orderData.customerInfo.address = document.getElementById('address').value.trim();
+                }
+                
+                // Payment Intent létrehozása
+                const paymentResponse = await fetch(`${API_URL}/create-payment-intent`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        amount: total,
+                        orderData: orderData
+                    })
+                });
+                
+                const { clientSecret } = await paymentResponse.json();
+                
+                // Fizetés megerősítése
+                const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
+                    payment_method: {
+                        card: cardElement,
+                        billing_details: {
+                            name: name,
+                            email: email,
+                        }
+                    }
+                });
+                
+                if (error) {
+                    throw new Error(error.message);
+                }
+                
+                if (paymentIntent.status === 'succeeded') {
+                    orderData.paymentStatus = 'Sikeres';
+                    
+                    // Rendelés véglegesítése
+                    await fetch(`${API_URL}/complete-order`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(orderData)
+                    });
+                    
+                    // Kosár törlése
+                    localStorage.removeItem('cart');
+                    
+                    // Sikeres üzenet megjelenítése
+                    document.getElementById('checkout-form').style.display = 'none';
+                    document.getElementById('order-number').textContent = orderId;
+                    document.getElementById('success-message').style.display = 'block';
+                }
+            } catch (error) {
+                console.error('Hiba:', error);
+                alert('Hiba történt a fizetés során: ' + error.message);
+                button.disabled = false;
+                buttonText.classList.remove('hidden');
+                buttonLoading.classList.add('hidden');
+            }
+        });
+
+        // Inicializálás
+        loadFoxPostLocations();
+        displayCart();
+    </script>
+</body>
+</html>
